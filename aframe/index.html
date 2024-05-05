@@ -4,21 +4,93 @@
     <meta charset="utf-8">
     <title>Lab2 - VR application</title>
     <meta name="description" content="Basic example for Point Cloud component."></meta>
-    <script src="https://aframe.io/releases/0.6.0/aframe.min.js"></script>
-    <script src="js/aframe-pointcloud-component.js"></script>
+    <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-pointcloud-component/dist/aframe-pointcloud-component.min.js"></script>   
+    <!-- <script src="https://unpkg.com/aframe-environment-component/dist/aframe-environment-component.min.js"></script>  -->
+    <!-- <script src="https://unpkg.com/aframe-physics-system@1.5.0/dist/aframe-physics-system.min.js"></script> -->
   </head>
   <body>
-    <a-scene>
+    <a-scene cursor="rayOrigin: mouse">
       <a-assets>
         <img id="groundTexture" src="https://cdn.aframe.io/a-painter/images/floor.jpg">
         <img id="skyTexture" src="https://cdn.aframe.io/a-painter/images/sky.jpg">
+        <img id="environmentTexture" src="aframe/environment.jpg">
       </a-assets>
 
+      <a-entity environment="preset: forest; dressingAmount: 500"></a-entity>
       <a-plane src="#groundTexture" rotation="-90 0 0" height="100" width="100"></a-plane>
       <a-light type="ambient" color="#445451"></a-light>
       <a-light type="point" intensity="2" position="2 4 4"></a-light>
-      <a-sky height="2048" radius="30" src="#skyTexture" theta-length="90" width="2048"></a-sky>
+      <a-sky color="#6EBAA7"></a-sky>
       <a-entity laser-controls line="color: red; opacity: 0.75"></a-entity>
+      <a-plane color="black" position="-5 1 -5" rotation="0 45 0" width="8" height="5"></a-plane>
+
+      <!-- Rotate buttons -->
+      <a-plane color="blue" position=" -4.99 3 -4.99" rotation="0 45 0" width="2.5" height="0.5" 
+               clickable visible="true" id="rotateXcw">
+        <a-text value="Rotate X CW" color="#000000" ></a-text>
+      </a-plane>
+      <a-plane color="blue" position=" -4.99 2.5   -4.99" rotation="0 45 0" width="2.5" height="0.5" 
+               clickable visible="true" id="rotateXccw">
+        <a-text value="Rotate X CCW" color="#000000" ></a-text>
+      </a-plane>
+
+      <a-plane color="green" position=" -4.99 2 -5" rotation="0 45 0" width="2.5" height="0.5" 
+               clickable visible="true" id="rotateYcw">
+        <a-text value="Rotate Y CW" color="#000000" ></a-text>
+      </a-plane>
+      <a-plane color="green" position=" -4.99 1.5   -4.99" rotation="0 45 0" width="2.5" height="0.5" 
+               clickable visible="true" id="rotateYccw">
+        <a-text value="Rotate Y CCW" color="#000000" ></a-text>
+      </a-plane>
+
+      <a-plane color="red" position=" -4.99 1 -5" rotation="0 45 0" width="2.5" height="0.5" 
+               clickable visible="true" id="rotateZcw">
+        <a-text value="Rotate Z CW" color="#000000" ></a-text>
+      </a-plane>
+      <a-plane color="red" position="  -4.99 0.5 -4.99" rotation="0 45 0" width="2.5" height="0.5" 
+               clickable visible="true" id="rotateZccw">
+        <a-text value="Rotate Z CCW" color="#000000" ></a-text>
+      </a-plane>
+
+      <!-- Move buttons -->
+      <a-plane color="cyan" position="-7 3 -2.95" rotation="0 45 0" width="2.0" height="0.5" 
+               clickable visible="true" id="moveXpos">
+        <a-text value="Move X +" color="#000000" ></a-text>
+      </a-plane>
+      <a-plane color="cyan" position="-7 2.5 -2.95" rotation="0 45 0" width="2.0" height="0.5" 
+               clickable visible="true" id="moveXneg">
+        <a-text value="Move X -" color="#000000" ></a-text>
+      </a-plane>
+
+      <a-plane color="yellow" position="-7 2 -2.95" rotation="0 45 0" width="2.0" height="0.5" 
+               clickable visible="true" id="moveYpos">
+        <a-text value="Move Y +" color="#000000" ></a-text>
+      </a-plane>
+      <a-plane color="yellow" position="-7 1.5 -2.95" rotation="0 45 0" width="2.0" height="0.5" 
+               clickable visible="true" id="moveYneg">
+        <a-text value="Move Y -" color="#000000" ></a-text>
+      </a-plane>
+
+      <a-plane color="magenta" position="-7 1 -2.95" rotation="0 45 0" width="2.0" height="0.5" 
+               clickable visible="true" id="moveZpos">
+        <a-text value="Move Z +" color="#000000" ></a-text>
+      </a-plane>
+      <a-plane color="magenta" position="-7 0.5 -2.95" rotation="0 45 0" width="2.0" height="0.5" 
+               clickable visible="true" id="moveZneg">
+        <a-text value="Move Z -" color="#000000" ></a-text>
+      </a-plane>
+
+      <!-- Zoom buttons -->
+      <a-plane color="orange" position="-2.99 2 -7" rotation="0 45 0" width="2" height="0.5" 
+               clickable visible="true" id="zoomIn">
+        <a-text value="Zoom In" color="#000000"></a-text>
+      </a-plane>
+      <a-plane color="orange" position="-2.99 1.5 -6.99" rotation="0 45 0" width="2" height="0.5" 
+               clickable visible="true" id="zoomOut">
+        <a-text value="Zoom Out" color="#000000"></a-text>
+      </a-plane>
+
       <a-pointcloud 
         scale="0.1 0.1 0.1" 
         position="0 0.08 -2.5" 
@@ -26,15 +98,103 @@
         src="url(sculpt.ply)" 
         size="0.01">
       </a-pointcloud>
-      <a-pointcloud 
-        scale="0.5 0.5 0.5" 
-        position="1.5 2 0.5" 
-        src="url(Sphere.ply)" 
-        size="0.05"
-        texture="url(VGTU-logo.png)"
-        depthWrite="false">
-      </a-pointcloud>
-
+      <a-box src="https://i.imgur.com/mYmmbrp.jpg"  position="3 2 -5" rotation="0 45 45" scale="2 2 2"></a-box>
     </a-scene>
+    <script>
+      AFRAME.registerComponent('clickable', {
+        init: function () {
+          var el = this.el;
+          el.addEventListener('click', function () {
+            // Handle click event for each button
+            var object = document.querySelector('a-box');
+            if (el.id === 'rotateXcw') {
+              object.setAttribute('rotation', {
+                x: object.getAttribute('rotation').x + 15,
+                y: object.getAttribute('rotation').y,
+                z: object.getAttribute('rotation').z
+              });
+            } else if (el.id === 'rotateXccw') {
+              object.setAttribute('rotation', {
+                x: object.getAttribute('rotation').x - 15,
+                y: object.getAttribute('rotation').y,
+                z: object.getAttribute('rotation').z
+              });
+            } else if (el.id === 'rotateYcw') {
+              object.setAttribute('rotation', {
+                x: object.getAttribute('rotation').x,
+                y: object.getAttribute('rotation').y + 15,
+                z: object.getAttribute('rotation').z
+              });
+            } else if (el.id === 'rotateYccw') {
+              object.setAttribute('rotation', {
+                x: object.getAttribute('rotation').x,
+                y: object.getAttribute('rotation').y - 15,
+                z: object.getAttribute('rotation').z
+              });
+            } else if (el.id === 'rotateZcw') {
+              object.setAttribute('rotation', {
+                x: object.getAttribute('rotation').x,
+                y: object.getAttribute('rotation').y,
+                z: object.getAttribute('rotation').z + 15
+              });
+            } else if (el.id === 'rotateZccw') {
+              object.setAttribute('rotation', {
+                x: object.getAttribute('rotation').x,
+                y: object.getAttribute('rotation').y,
+                z: object.getAttribute('rotation').z - 15
+              });
+            } else if (el.id === 'moveXpos') {
+              object.setAttribute('position', {
+                x: object.getAttribute('position').x + 1,
+                y: object.getAttribute('position').y,
+                z: object.getAttribute('position').z
+              });
+            } else if (el.id === 'moveXneg') {
+              object.setAttribute('position', {
+                x: object.getAttribute('position').x - 1,
+                y: object.getAttribute('position').y,
+                z: object.getAttribute('position').z
+              });
+            } else if (el.id === 'moveYpos') {
+              object.setAttribute('position', {
+                x: object.getAttribute('position').x,
+                y: object.getAttribute('position').y + 1,
+                z: object.getAttribute('position').z
+              });
+            } else if (el.id === 'moveYneg') {
+              object.setAttribute('position', {
+                x: object.getAttribute('position').x,
+                y: object.getAttribute('position').y - 1,
+                z: object.getAttribute('position').z
+              });
+            } else if (el.id === 'moveZpos') {
+              object.setAttribute('position', {
+                x: object.getAttribute('position').x,
+                y: object.getAttribute('position').y,
+                z: object.getAttribute('position').z + 1
+              });
+            } else if (el.id === 'moveZneg') {
+              object.setAttribute('position', {
+                x: object.getAttribute('position').x,
+                y: object.getAttribute('position').y,
+                z: object.getAttribute('position').z - 1
+              });
+            } else if (el.id === 'zoomIn') {
+              object.setAttribute('scale', {
+                x: object.getAttribute('scale').x * 1.1,
+                y: object.getAttribute('scale').y * 1.1,
+                z: object.getAttribute('scale').z * 1.1
+              });
+            } else if (el.id === 'zoomOut') {
+              object.setAttribute('scale', {
+                x: object.getAttribute('scale').x * 0.9,
+                y: object.getAttribute('scale').y * 0.9,
+                z: object.getAttribute('scale').z * 0.9
+              });
+            }
+          });
+        }
+      });
+    </script>
   </body>
 </html>
