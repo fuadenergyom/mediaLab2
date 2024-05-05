@@ -22,3 +22,11 @@ There are many open source alternatives to build virtual reality application. On
   - You can try to use Apache: https://www.raspberrypi.org/documentation/remote-access/web-server/apache.md 
   - Tomcat: http://androidsrc.net/installing-tomcat8-raspberry-pi-3/ 
   - HFS: http://www.rejetto.com/hfs/ or any other server.
+
+# Specifications
+  - Buttons were added to zoom in/out, move, and rotate an <a-box> object in the scene.
+
+# Testing
+The app was tested on: 
+  - Safari Version 17.4.1 (19618.1.15.11.14)
+  - Chrome Version 124.0.6367.119
